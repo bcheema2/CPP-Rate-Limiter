@@ -1,13 +1,14 @@
 //
 // Created by Bibenpreet Cheema on 8/30/26.
 //
-#include "TokenBucket.h"
+#include "../include/TokenBucket.h"
 #include <iostream>
 #include <algorithm>
 using namespace std::chrono_literals;
 
 TokenBucket::TokenBucket(int cap)
-    : tokens(cap), capacity(cap), last_refill(std::chrono::steady_clock::now())
+    : tokens(cap), capacity(cap), last_refill(std::chrono::steady_clock::now()),
+      last_accessed(std::chrono::steady_clock::now())
 {}
 
 void TokenBucket::refill(int amount) {
@@ -29,11 +30,13 @@ bool TokenBucket::request() {
 
     {
         std::lock_guard<std::mutex> lock(mtx);
+        last_accessed = std::chrono::steady_clock::now();
         refill();
 
         if (tokens >= 1) {
             tokens --;
             allowed = true;
+
         }
     } //Lock is released here
 

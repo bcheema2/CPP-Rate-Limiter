@@ -23,8 +23,7 @@ public:
 
     bool allow_request(const std::string& client_id);
 
-
-
+    void clean_inactive_buckets(std::chrono::seconds max_idle_time = std::chrono::minutes(5));
 };
 
 

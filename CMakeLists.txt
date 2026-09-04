@@ -3,8 +3,8 @@ project(Rate_Limiter)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Rate_Limiter main.cpp
-        TokenBucket.h
-        TokenBucket.cpp
-        RateLimiterManager.cpp
-        RateLimiterManager.h)
+add_executable(Rate_Limiter src/main.cpp
+        include/TokenBucket.h
+        src/TokenBucket.cpp
+        src/RateLimiterManager.cpp
+        include/RateLimiterManager.h)
