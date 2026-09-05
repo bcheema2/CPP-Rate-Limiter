@@ -10,20 +10,31 @@
 #include <string>
 #include <memory>
 #include <shared_mutex>
+#include <thread>
+#include <condition_variable>
+#include <atomic>
 #include <mutex>
 
-class RateLimiterManager {
-private:
-    mutable std::shared_mutex map_mtx;
-    std::unordered_map<std::string, std::unique_ptr<TokenBucket>> TokenBuckets;
-    int default_capacity;
 
-public:
-    RateLimiterManager(int capacity);
+class RateLimiterManager
+{
+    private:
+        mutable std::shared_mutex map_mtx;
+        std::unordered_map<std::string, std::unique_ptr<TokenBucket>> TokenBuckets;
+        int default_capacity;
+        std::atomic<bool> stop_signal{false};
+        std::condition_variable_any cv;
+        std::mutex cv_mtx;
+        std:: thread cleanup_thread;
+        void background_cleanup_loop();
 
-    bool allow_request(const std::string& client_id);
+    public:
+        RateLimiterManager(int capacity);
+        ~RateLimiterManager();
 
-    void clean_inactive_buckets(std::chrono::seconds max_idle_time = std::chrono::minutes(5));
+        bool allow_request(const std::string& client_id);
+
+        void clean_inactive_buckets(std::chrono::seconds max_idle_time = std::chrono::seconds(10));
 };
 
 

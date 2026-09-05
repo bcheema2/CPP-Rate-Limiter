@@ -11,7 +11,8 @@ TokenBucket::TokenBucket(int cap)
       last_accessed(std::chrono::steady_clock::now())
 {}
 
-void TokenBucket::refill(int amount) {
+void TokenBucket::refill(int amount)
+{
     auto now = std::chrono::steady_clock::now();
     auto elapsed = now - last_refill;
 
@@ -25,7 +26,8 @@ void TokenBucket::refill(int amount) {
 
 }
 
-bool TokenBucket::request() {
+bool TokenBucket::request()
+{
     bool allowed = false;
 
     {
