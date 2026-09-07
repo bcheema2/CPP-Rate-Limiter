@@ -2,7 +2,7 @@ Markdown
 
 # High-Peformance Multi-Threaded Rate Limiter
 
-A thread-safe, low-latence rate limiter implemented in modern C++(C++20). This system uses a **Token Bucket** algorithm managed by a thread-safe registry (`RateLimiterManager`), featuring fine-grained concurrency control, automatic background memory reclamation for idle clients, and unit test coverage via GoogleTest.
+A thread-safe, low-latency rate limiter implemented in modern C++(C++20). This system uses a **Token Bucket** algorithm managed by a thread-safe registry (`RateLimiterManager`), featuring fine-grained concurrency control, automatic background memory reclamation for idle clients, and unit test coverage via GoogleTest.
 
 ---
 
@@ -21,7 +21,7 @@ A thread-safe, low-latence rate limiter implemented in modern C++(C++20). This s
 - **`include/TokenBucket.h` & `src/TokenBucket.cpp`**: Core rate-limiting bucket enforcing per-client capacities, lock-protected token replenishment, and atomic metrics tracking.
 - **`include/RateLimiterManager.h` & `src/RateLimiterManager.cpp`**: High-level map managing individual `TokenBucket` instances mapped to `client_id`s, concurrent access control, and idle-bucket background cleanup execution.
 - **`main.cpp`**: Simulation harness demonstrating multi-threaded burst workloads, atomic counter validation, and worker cleanup routines.
-- **`tests/`**: GoogleTest suite for unit-level verification.
+- **`tests/`**: GoogleTest suite for unit-level verification , Background Daemon & Automated Eviction , Multi-Threaded Lock Contention, Destructor & RAII Lifecycle Test.
 
 ---
 

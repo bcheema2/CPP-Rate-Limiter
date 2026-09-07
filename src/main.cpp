@@ -48,7 +48,7 @@ int main() {
     std::cout << "Waiting for 10s\n";
     std::this_thread::sleep_for(std::chrono::seconds(10));
 
-    std::cout << "Cleanup wait complete. System ready for shutdoen\n";
+    std::cout << "Cleanup wait complete. System ready for shutdown\n";
 
 
     return 0;
