@@ -23,8 +23,8 @@ class RateLimiterManager
         std::unordered_map<std::string, std::unique_ptr<TokenBucket>> TokenBuckets;
         int default_capacity;
         std::atomic<bool> stop_signal{false};
-        std::condition_variable_any cv;
         std::mutex cv_mtx;
+        std::condition_variable_any cv;
         std:: thread cleanup_thread;
         void background_cleanup_loop();
 
